@@ -1,215 +1,363 @@
-#FUNCTION
+#TASK 1
+class str1:
+    def __init__(self):
+        self.s = ""
 
-def f1():
-    print('First function in this lab')
+    def getString(self):
+        self.s = input("enter str: ")
 
-f1()
+    def printString(self):
+        print(self.s.upper())
 
-def f1(word):
-    print('word: ' + word)
+sm = str1()
+sm.getString()
+sm.printString()
 
-f1('first')
-f1('second')
-f1('third')
 
-def f2(firstArg, secondArg):
-    print(secondArg + " " + firstArg)
+#TASK 2
+class Shape:
+    def area(self):
+        return 0
 
-f2('Word1', 'Word2')
+class Square(Shape):
+    def __init__(self, length):
+        self.length = length
 
-def f3(*manyArgs):
-    print('Set of fruits: ', set(manyArgs))
+    def area(self):
+        return self.length ** 2
+    
+sq = Square(5)
+print(sq.area())  
 
-f3('Mango', 'Banana', 'Pineapple')
 
-def f4(arg3, arg2, arg1):
-    print('Second instrument: ' + arg2)
+#TASK 3
+class Rectangle(Shape):
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
 
-f4(arg2 = 'Piano', arg3 = 'guitar', arg1 = 'ukulele')
+    def area(self):
+        return self.length * self.width
 
-def f5(**dictF):
-    print('First pet is a ' + dictF["arg1"])
+rect = Rectangle(4, 6)
+print(rect.area())
 
-f5(arg1 = 'Cat', arg2 = 'Dog')
 
-def f6(city = 'Almaty'):
-    print("The most interesting city in KZ is " + city)
+#TASK 4
+import math
 
-f6('Astana')
-f6('Pavlodar')
-f6()
-f6('Shymkent')
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
-def f7(Pet):
-    for i in Pet:
-        print(i)
+    def show(self):
+        print(f"({self.x}, {self.y})")
 
-Pets = ['Dog', 'Kit', 'Parrot']
-f7(Pets)
+    def move(self, new_x, new_y):
+        self.x = new_x
+        self.y = new_y
 
-def f8(num):
-    return 100 // num
+    def dist(self, newpoint):
+        return math.sqrt((self.x - newpoint.x) ** 2 + (self.y - newpoint.y) ** 2)
 
-print(f8(15))
-print(f8(200))
-print(f8(10))
+p1 = Point(3, 4)
+p2 = Point(6, 8)
+p1.show()
+print(p1.dist(p2))
 
-def emptyf():
-    pass
 
-def f9(pos, /):
-    print(pos)
-f9('pos = 10 will give an error')
+#TASK 5
+class Account:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
 
-def f9(noPosition):
-    print(noPosition)
-f9(noPosition = 'Now its possible to use keyword args')
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"adding: {amount}. new balance: {self.balance}")
 
-def f10(*, keyw):
-    print(keyw)
-f10(keyw = 'Only keyword args')
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("not enough money")
+        else:
+            self.balance -= amount
+            print(f"withdrawals: {amount}. new balance: {self.balance}")
 
-def combine(x, y, /, *, z, t):
-    print(x + z + y + t)
-combine('one ', 'three ', z = 'two ', t = 'four')
+acc = Account("john", 100)
+acc.deposit(50)  
+acc.withdraw(30) 
+acc.withdraw(200)
 
-def rec(var):
-    if(var > 0):
-        res = var + rec(var - 3)
-        print(res)
+
+#TASK 6
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+numbers = [10, 15, 17, 19, 22, 23, 29]
+primes = list(filter(lambda x: is_prime(x), numbers))
+print(primes)
+
+
+#FUNC1
+
+
+#TASK 1
+def oun(grams):
+    return 28.3495231 * grams
+
+print(oun(100))
+
+#TASK 2
+def cel(f):
+    return (5 / 9) * (f - 32)
+
+print(cel(100))
+
+#TASK 3
+def solve(numheads, numlegs):
+    for chickens in range(numheads + 1):
+        rabbits = numheads - chickens
+        if chickens * 2 + rabbits * 4 == numlegs:
+            return chickens, rabbits
+    return None
+
+print(solve(35, 94))
+
+#TASK 4
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def filter_prime(numbers):
+    return [num for num in numbers if is_prime(num)]
+
+print(filter_prime([10, 15, 17, 19, 22, 23, 29])) 
+
+#TASK 5
+def permute(s, l=0, r=None):
+    if r is None:
+        r = len(s) - 1
+    
+    if l == r:
+        print("".join(s))
     else:
-        res = 0 
-    return res
-print("First recursion: ")
-rec(9)
+        for i in range(l, r + 1):
+            s[l], s[i] = s[i], s[l]
+            permute(s, l + 1, r)
+            s[l], s[i] = s[i], s[l]
 
-#LAMBDA
+s = list("abc")
+permute(s)
 
-lam = lambda var : var / 10
-print(lam(19))
+#TASK 6
+def reverse_sentence(sentence):
+    return " ".join(sentence.split()[::-1])
 
-lam = lambda x, y : int(x + y - x / y)
-print(lam(15, 5))
+print(reverse_sentence("We are ready"))
 
-lam1 = lambda x, y, z : x - y - z
-print(lam1(100, 50, 25))
+#TASK 7
+def has_33(nums):
+    for i in range(len(nums) - 1):
+        if nums[i] == nums[i + 1] == 3:
+            return True
+    return False
 
-def f11(num):
-    return lambda x : x - num
-var = f11(5)
-print(var(6))
+print(has_33([1, 3, 3]))
+print(has_33([1, 3, 1, 3]))
+print(has_33([3, 1, 3]))
 
-def f12(firstLambda):
-    return lambda fr : fr + firstLambda
+#TASK 8
+def spy_game(nums):
+    code = [0, 0, 7]
+    for num in nums:
+        if num == code[0]:
+            code.pop(0)
+        if not code:
+            return True
+    return False
 
-firstl = f12(51)
-secondl = f12(99)
-print(firstl(49), ' ', secondl(1))
+print(spy_game([1, 2, 4, 0, 0, 7, 5]))
+print(spy_game([1, 0, 2, 4, 0, 5, 7]))
+print(spy_game([1, 7, 2, 0, 4, 5, 0]))
 
-#CLASSES AND OBJECTS
+#TASK 9
+import math
 
-class c1:
-    num = 10
+def sphere_volume(r):
+    return (4 / 3) * math.pi * r ** 3
 
-obj1 = c1()
-print(obj1.num)
+print(sphere_volume(3))
 
-class c2:
-    def __init__(self, Color, material):
-        self.Color = Color
-        self.material = material
+#TASK 10
+def uniq(lst):
+    uniqlst = []
+    for item in lst:
+        if item not in uniqlst:
+            uniqlst.append(item)
+    return uniqlst
 
-o1 = c2('gray', 'stone')
-print(o1.Color, o1.material)
+print(uniq([1, 2, 3, 3, 2, 1, 5]))
 
-class student:
-    def __init__(self, course, school):
-        self.course = course
-        self.school = school
+#TASK 11
+def is_palindrome(s):
+    s = s.replace(" ", "").lower()
+    return s == s[::-1]
+
+print(is_palindrome("madam"))
+print(is_palindrome("hello"))
+print(is_palindrome("abcba"))
+
+#TASK 12
+def histogram(lst):
+    for num in lst:
+        print("*" * num)
+
+histogram([4, 9, 7])
+
+#TASK 13
+import random
+
+def guess_number():
+    name = input("Hello! What is your name?\n")
+    secret_number = random.randint(1, 20)
+    print(f"Well, {name}, I am thinking of a number between 1 and 20.")
     
-    def __str__(self):
-        return f"{self.course}({self.school})"
+    attempts = 0
+    while True:
+        guess = int(input("Take a guess.\n"))
+        attempts += 1
+        if guess < secret_number:
+            print("Your guess is too low.")
+        elif guess > secret_number:
+            print("Your guess is too high.")
+        else:
+            print(f"Good job, {name}! You guessed my number in {attempts} guesses!")
+            break
 
-o2 = student(1, 'site')
-print(o2)
+guess_number()
 
-class Students:
-    def __init__(self, course, school):
-        self.course = course
-        self.school = school
-    
-    def f1(self):
-        print('Course of the student: ', self.course)
-o3 = Students('Second', 'SITE')
-o3.f1()
 
-class St:
-    def __init__(otherword, course, school):
-        otherword.course = course
-        otherword.school = school
-    
-    def f2(other):
-        print('school of the student: ', other.school)
-o4 = St('third', 'SITE')
-o4.f2()
+#FUNC 2
 
-o3.course = 1
-o3.f1()
 
-del o4.school
+movies = [
+{
+"name": "Usual Suspects", 
+"imdb": 7.0,
+"category": "Thriller"
+},
+{
+"name": "Hitman",
+"imdb": 6.3,
+"category": "Action"
+},
+{
+"name": "Dark Knight",
+"imdb": 9.0,
+"category": "Adventure"
+},
+{
+"name": "The Help",
+"imdb": 8.0,
+"category": "Drama"
+},
+{
+"name": "The Choice",
+"imdb": 6.2,
+"category": "Romance"
+},
+{
+"name": "Colonia",
+"imdb": 7.4,
+"category": "Romance"
+},
+{
+"name": "Love",
+"imdb": 6.0,
+"category": "Romance"
+},
+{
+"name": "Bride Wars",
+"imdb": 5.4,
+"category": "Romance"
+},
+{
+"name": "AlphaJet",
+"imdb": 3.2,
+"category": "War"
+},
+{
+"name": "Ringing Crime",
+"imdb": 4.0,
+"category": "Crime"
+},
+{
+"name": "Joking muck",
+"imdb": 7.2,
+"category": "Comedy"
+},
+{
+"name": "What is the name",
+"imdb": 9.2,
+"category": "Suspense"
+},
+{
+"name": "Detective",
+"imdb": 7.0,
+"category": "Suspense"
+},
+{
+"name": "Exam",
+"imdb": 4.2,
+"category": "Thriller"
+},
+{
+"name": "We Two",
+"imdb": 7.2,
+"category": "Romance"
+}
+]
 
-del o3
+#TASK 1
+def ishighrated(movie):
+    return movie["imdb"] > 5.5
 
-class empty:
-    pass
+print(ishighrated(movies[0]))
+print(ishighrated(movies[8]))
 
-#INHERITANCE
+#TASK 2
+def highrate(movies):
+    return [movie for movie in movies if movie["imdb"] > 5.5]
 
-class pc:
-    def __init__(self, cpu, gpu):
-        self.processor = cpu
-        self.graphic = gpu
+print(highrate(movies))  
 
-    def printname(self):
-        print(self.processor, self.graphic)
+#TASK 3
+def moviecategory(movies, category):
+    return [movie for movie in movies if movie["category"] == category]
 
-pc1 = pc('intel', 'radeon')
-pc1.printname()
+print(moviecategory(movies, "Romance"))
 
-class otherpc(pc):
-    pass
+#TASK 4
+def averageimdb(movies):
+    if not movies:
+        return 0
+    return sum(movie["imdb"] for movie in movies) / len(movies)
 
-pc2 = otherpc('amd', 'geforce')
-pc2.printname()
+print(int(averageimdb(movies))) 
 
-class otherpc1(pc):
-    def __init__(self, cpu, gpu):
-        self.__init__(self, cpu, gpu)
-        self.__init__(self, cpu, gpu)
+#TASK 5
+def avgcategory(movies, category):
+    filtered_movies = moviecategory(movies, category)
+    return averageimdb(filtered_movies)
 
-class otherpc2(pc):
-    def __init__(self, cpu, gpu):
-        super().__init__(cpu, gpu)
-
-class otherpc3(pc):
-    def __init__(self, cpu, gpu):
-        super().__init__(cpu, gpu)
-        self.ram = '32 gb'
-    
-class otherpc4(pc):
-    def __init__(self, cpu, gpu, ram):
-        super().__init__(cpu, gpu)
-        self.randaccessmem = ram
-
-o5 = otherpc4('amd', 'radeon', '32 gb')
-
-class otherpc5(pc):
-    def __init__(self, cpu, gpu, ram):
-        super().__init__(cpu, gpu)
-        self.randaccessmem = ram
-
-    def setup(self):
-        print('Your pc:', self.processor, self.graphic, self.randaccessmem)
-
-o6 = otherpc5('amd', 'palit', '64 gb')
-o6.setup()
+print(avgcategory(movies, "Romance"))
