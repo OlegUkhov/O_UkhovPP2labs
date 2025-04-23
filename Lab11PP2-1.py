@@ -4,7 +4,7 @@ import csv
 conn = psycopg2.connect("dbname=post user=postgres password=123 host=localhost")
 cur = conn.cursor()
 
-def upsertUserByName():
+def insertUser():
     name = input("Enter name: ")
     phone = input("Enter phone: ")
     try:
@@ -85,7 +85,7 @@ while True:
 """)
     choice = input("Choose option: ")
     if choice == "1":
-        upsertUserByName()
+        insertUser()
     elif choice == "2":
         manyInsertCSV()
     elif choice == "3":
